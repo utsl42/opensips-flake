@@ -116,7 +116,7 @@ in
           Restart = "on-failure";
           User = "opensips";
           Group = "opensips";
-          ExecStart = "${pkgs.opensips}/bin/opensips -c /etc/opensips/opensips.cfg -m ${toString cfg.sharedMemory} -M ${toString cfg.pkgMemory}";
+          ExecStart = "${pkgs.opensips}/bin/opensips -f /etc/opensips/opensips.cfg -m ${toString cfg.sharedMemory} -M ${toString cfg.pkgMemory}";
           ExecReload = "${pkgs.opensips-cli}/bin/opensips-cli -x reload_routes";
           RuntimeDirectory = "opensips";
           CapabilityBoundingSet = caps;
