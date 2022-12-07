@@ -99,6 +99,13 @@ in
         '';
       };
 
+      users.users.opensips = {
+        description = "OpenSIPS daemon user";
+        isSystemUser = true;
+        group = "opensips";
+      };
+      users.groups.opensips = {};
+
       systemd.services.opensips = {
         description = "OpenSIPS SIP proxy";
         wantedBy = [ "multi-user.target" ];
