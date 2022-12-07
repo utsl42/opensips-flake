@@ -20,7 +20,12 @@
     {
       overlays.default = final: prev: {
         opensips = final.callPackage ./opensips/default.nix { };
+        opensips-cli = final.callPackage ./opensips-cli/default.nix { };
       };
+      checks = forAllSystems (system: {
+        unit-test = import ./opensips/configfile_test.nix { pkgs = pkgsForSystem system; };
+      }
+      );
       packages = forAllSystems
         (system:
           let
@@ -28,7 +33,49 @@
           in
           {
             opensips = pkgs.opensips;
+            opensips-cli = pkgs.opensips-cli;
             default = pkgs.opensips;
           });
+      nixosModules.opensips = {
+        imports = [ ./opensips/module.nix ];
+        nixpkgs.overlays = [ self.overlays.default ];
+      };
+      nixosConfigurations.container = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          [
+            self.nixosModules.opensips
+            ({ pkgs, ... }: {
+              boot.isContainer = true;
+              services.opensips = {
+                enable = true;
+                globalConfig = ''
+                  log_level=2
+                  xlog_level=2
+                  udp_workers=4
+                  socket=udp:*:5060
+                '';
+                moduleParameters = {
+                  proto_udp = { };
+                  signaling = { };
+                  usrloc = { };
+                  tm = {
+                    fr_timeout = 5;
+                    fr_inv_timeout = 30;
+                  };
+                  registrar = {
+                    attr_avp = "$avp(attr)";
+                  };
+                };
+                routeScript = ''
+                  route {
+                    exit;
+                  }
+                '';
+              };
+
+            })
+          ];
+      };
     };
 }
