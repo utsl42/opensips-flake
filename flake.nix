@@ -22,10 +22,9 @@
         opensips = final.callPackage ./opensips/default.nix { };
         opensips-cli = final.callPackage ./opensips-cli/default.nix { };
       };
-      checks = forAllSystems (system: {
+      tests = forAllSystems (system: {
         unit-test = import ./opensips/configfile_test.nix { pkgs = pkgsForSystem system; };
-      }
-      );
+      });
       packages = forAllSystems
         (system:
           let
@@ -47,6 +46,7 @@
             self.nixosModules.opensips
             ({ pkgs, ... }: {
               boot.isContainer = true;
+              system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
               services.opensips = {
                 enable = true;
                 globalConfig = ''
