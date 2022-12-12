@@ -1,14 +1,18 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> { } }:
 let
   inherit (pkgs) lib;
 in
 rec {
   /* Convert module, key, and value to an OpenSIPS modparam */
   modParam = m: k: v:
-    if builtins.isInt v then
-      ''modparam("${m}", "${k}", '' + builtins.toString v + ")"
+    /* if v is a list, then we'll need to recurse */
+    if builtins.isList v then
+      lib.concatStringsSep "\n" (map (v: modParam m k v) v)
     else
-      ''modparam("${m}", "${k}", "${v}")'';
+      if builtins.isInt v then
+        ''modparam("${m}", "${k}", '' + builtins.toString v + ")"
+      else
+        ''modparam("${m}", "${k}", "${v}")'';
   /* Map a module's attribute set to modparam */
   modParamList = m: kv: lib.concatStringsSep "\n" (lib.mapAttrsToList (modParam m) kv);
   /* Map a nested attribute of modules and key/value parameters to a list of OpenSIPS modparam configurations */

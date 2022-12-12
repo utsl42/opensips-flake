@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> { } }:
 let
   inherit (pkgs) lib;
   inherit (lib) runTests;
@@ -49,5 +49,22 @@ with configfile; runTests {
       modparam("registrar", "attr_avp", "$avp(attr)")
       modparam("tm", "fr_inv_timeout", 30)
       modparam("tm", "fr_timeout", 5)'';
+  };
+  test6 = {
+    expr = modParamAttrs {
+      cachedb_local = {
+        cachdb_url = [
+          "local://"
+          "local:ipban:///ipban"
+          "local:goodip:///goodip"
+        ];
+        cache_collections = "ipban=8; goodip=8; default=4";
+      };
+    };
+    expected = ''
+      modparam("cachedb_local", "cachdb_url", "local://")
+      modparam("cachedb_local", "cachdb_url", "local:ipban:///ipban")
+      modparam("cachedb_local", "cachdb_url", "local:goodip:///goodip")
+      modparam("cachedb_local", "cache_collections", "ipban=8; goodip=8; default=4")'';
   };
 }
