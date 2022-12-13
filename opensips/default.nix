@@ -34,6 +34,12 @@ stdenv.mkDerivation rec {
     make install install-modules-all cfg_prefix=$out basedir=$out bin_prefix=$out bin_dir=bin \
       modules_prefix=$out modules_dir=mod map_prefix=$out man_dir=man skip-install-doc=yes \
       include_modules="${extra_modules}"
+    # workaround until I figure out where this is controlled in the makefile
+    mv $out/usr/local/* $out
+    rmdir $out/usr/local
+    rmdir $out/usr
+    mv $out/etc/opensips/* $out/etc
+    rmdir $out/etc/opensips
   '';
 
   meta = with lib; {
