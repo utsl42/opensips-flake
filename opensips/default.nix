@@ -34,13 +34,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "opensips";
-  version = "3.4-rc";
+  version = "3.4.0";
 
   src = fetchFromGitHub {
     owner = "OpenSIPS";
     repo = "opensips";
-    rev = "d9cc29959d97d3dda1654d0d41b62299ca7c1ff2";
-    sha256 = "sha256-lcTxRO9UkKtgOHILIi2OoGmqssECnZi3KoESE0w8qj0=";
+    rev = "f3e0d5333913bcaace4c8f8711871550accca63f";
+    sha256 = "sha256-LKNIOY8OnjEgGQyG7ZCahE91DBcyzCec84bkAi2kLF8=";
   };
 
   nativeBuildInputs = with pkgs; [ bison flex which pkg-config ];
