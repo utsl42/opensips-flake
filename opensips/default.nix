@@ -34,13 +34,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "opensips";
-  version = "3.3.3";
+  version = "3.4.0";
 
   src = fetchFromGitHub {
     owner = "OpenSIPS";
     repo = "opensips";
-    rev = "25b7e9226aadb89c99b4062504eddc39ca9837ff";
-    sha256 = "sha256-P6TD7bz60hzn+nItpPBZcxeUu3iFddowEETVp+lW6Ck=";
+    rev = "f3e0d5333913bcaace4c8f8711871550accca63f";
+    sha256 = "sha256-LKNIOY8OnjEgGQyG7ZCahE91DBcyzCec84bkAi2kLF8=";
   };
 
   nativeBuildInputs = with pkgs; [ bison flex which pkg-config ];
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     sed 's/rls/pua_dialoginfo/g' < modules/rls/Makefile > modules/pua_dialoginfo/Makefile
   '';
   buildPhase = ''
-    make app
+    make app VERSIONTYPE=git THISREVISION=d9cc99
     make modules JSONPATH=${pkgs.json_c} include_modules="${extra_modules}"
   '';
   installPhase = ''
