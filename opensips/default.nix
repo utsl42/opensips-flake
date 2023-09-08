@@ -30,17 +30,18 @@ let
     "carrierroute"
     "uuid"
     "rest_client"
+    "proto_wss"
   ]);
 in
 stdenv.mkDerivation rec {
   pname = "opensips";
-  version = "3.4.0";
+  version = "3.4.1";
 
   src = fetchFromGitHub {
     owner = "OpenSIPS";
     repo = "opensips";
-    rev = "f3e0d5333913bcaace4c8f8711871550accca63f";
-    sha256 = "sha256-LKNIOY8OnjEgGQyG7ZCahE91DBcyzCec84bkAi2kLF8=";
+    rev = "${version}";
+    sha256 = "sha256-HTwqOz7WDP/V73KPfcBMbaXaxRfbupIskDKyMfxvJvI";
   };
 
   nativeBuildInputs = with pkgs; [ bison flex which pkg-config ];
