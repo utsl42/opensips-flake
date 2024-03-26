@@ -31,6 +31,10 @@ let
     "uuid"
     "rest_client"
     "proto_wss"
+    "db_http"
+    "rabbitmq"
+    "event_rabbitmq"
+    "rabbitmq_consumer"
   ]);
 in
 stdenv.mkDerivation rec {
@@ -44,8 +48,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0Fqx4++eaQu5s3aMRbr0h023xEDdM+jTCnf8h9YAjAk=";
   };
 
-  nativeBuildInputs = with pkgs; [ bison flex which pkg-config ];
-  buildInputs = with pkgs; [ ncurses expat openssl postgresql libxml2 libconfuse json_c libmicrohttpd_0_9_72 mysql80 zstd sqlite curl rdkafka hiredis libconfuse libuuid ];
+  nativeBuildInputs = with pkgs; [ bison flex which pkg-config libxslt lynx ];
+  buildInputs = with pkgs; [ ncurses expat openssl postgresql libxml2 libconfuse json_c libmicrohttpd_0_9_72 mysql80 zstd sqlite curl rdkafka hiredis libconfuse libuuid rabbitmq-c ];
 
   patchPhase = ''
     # these Makefiles don't use xml-config, so they don't find libxml2's include files. RLS module does, so I copy it, and change the
