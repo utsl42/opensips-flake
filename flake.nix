@@ -2,7 +2,7 @@
   description = "OpenSIPS - flexible and robust SIP (RFC3261) server";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
   };
 
   outputs = { self, nixpkgs }:

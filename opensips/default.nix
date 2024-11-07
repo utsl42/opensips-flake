@@ -39,17 +39,17 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "opensips";
-  version = "3.4.4";
+  version = "3.4.9";
 
   src = fetchFromGitHub {
     owner = "OpenSIPS";
     repo = "opensips";
     rev = "${version}";
-    sha256 = "sha256-0Fqx4++eaQu5s3aMRbr0h023xEDdM+jTCnf8h9YAjAk=";
+    sha256 = "sha256-wrAJgxHc38F+FvK4e6+K+pSxSKAOCh06Cef6Ga34/DA=";
   };
 
   nativeBuildInputs = with pkgs; [ bison flex which pkg-config libxslt lynx ];
-  buildInputs = with pkgs; [ ncurses expat openssl postgresql libxml2 libconfuse json_c libmicrohttpd_0_9_72 mysql80 zstd sqlite curl rdkafka hiredis libconfuse libuuid rabbitmq-c ];
+  buildInputs = with pkgs; [ ncurses expat openssl postgresql libxml2 libconfuse json_c libmicrohttpd mysql80 zstd sqlite curl rdkafka hiredis libconfuse libuuid rabbitmq-c ];
 
   patchPhase = ''
     # these Makefiles don't use xml-config, so they don't find libxml2's include files. RLS module does, so I copy it, and change the
