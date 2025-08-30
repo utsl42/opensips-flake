@@ -28,6 +28,7 @@ in
   options = {
     services.opensips = {
       enable = mkEnableOption (lib.mdDoc "OpenSIPS SIP Proxy");
+      package = mkPackageOption pkgs "opensips" { };
       globalConfig = mkOption {
         type = types.lines;
         description = ''
@@ -81,7 +82,7 @@ in
 
   config = mkIf cfg.enable
     {
-      environment.systemPackages = [ pkgs.opensips ];
+      environment.systemPackages = [ cfg.package ];
 
       environment.etc."opensips/opensips-globals.cfg".source = globalsFile;
       environment.etc."opensips/opensips-routes.cfg".source = routesFile;
@@ -95,7 +96,7 @@ in
           configFiles;
         checkPhase = ''
           ln -s $out opensips.cfg
-          ${pkgs.opensips}/bin/opensips -C -f opensips.cfg
+          ${cfg.package}/bin/opensips -C -f opensips.cfg
         '';
       };
 
@@ -116,7 +117,7 @@ in
           Restart = "on-failure";
           User = "opensips";
           Group = "opensips";
-          ExecStart = "${pkgs.opensips}/bin/opensips -f /etc/opensips/opensips.cfg -m ${toString cfg.sharedMemory} -M ${toString cfg.pkgMemory}";
+          ExecStart = "${cfg.package}/bin/opensips -f /etc/opensips/opensips.cfg -m ${toString cfg.sharedMemory} -M ${toString cfg.pkgMemory}";
           ExecReload = "${pkgs.opensips-cli}/bin/opensips-cli -x mi reload_routes";
           RuntimeDirectory = "opensips";
           CapabilityBoundingSet = caps;
