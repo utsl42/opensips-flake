@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption optionalString types concatStringsSep concatMapStrings mapAttrsToList;
+  inherit (lib) mkEnableOption mkPackageOption mkIf mkOption optionalString types concatStringsSep concatMapStrings mapAttrsToList;
   cfg = config.services.opensips;
   caps = [ "CAP_NET_ADMIN" "CAP_NET_BIND_SERVICE" "CAP_NET_RAW" ];
   configfile = import ./configfile.nix { inherit pkgs; };
