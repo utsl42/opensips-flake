@@ -8,8 +8,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "OpenSIPS";
     repo = "opensips-cli";
-    rev = "e4dee4aa9cedb1b24c64210e41863e59b12a094f";
-    sha256 = "sha256-I2jStuPm0bZX2F02DvT6/ZJuDI8Kn6+I7uU5aqvAVaQ=";
+    rev = "23b93e459b9dfac59949da601308b35e4e845465";
+    sha256 = "sha256-vU6WCiv5PtIAvfdRFXzWdCB4itMX/cf/7higrjeO8ng=";
   };
 
   propagatedBuildInputs = [ sqlalchemy sqlalchemy-utils ];

@@ -2,7 +2,7 @@
   description = "OpenSIPS - flexible and robust SIP (RFC3261) server";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.05";
+    nixpkgs.url = "nixpkgs/nixos-25.05";
   };
 
   outputs = { self, nixpkgs }:
@@ -19,7 +19,11 @@
     in
     {
       overlays.default = final: prev: {
-        opensips = final.callPackage ./opensips/default.nix { };
+        inherit (final.callPackages ./opensips/default.nix { })
+          opensips_34
+          opensips_35
+          opensips_36
+        ;
         opensips-cli = final.callPackage ./opensips-cli/default.nix { };
       };
       tests = forAllSystems (system: {
@@ -31,9 +35,12 @@
             pkgs = pkgsForSystem system;
           in
           {
-            opensips = pkgs.opensips;
+            opensips_34 = pkgs.opensips_34;
+            opensips_35 = pkgs.opensips_35;
+            opensips_36 = pkgs.opensips_36;
             opensips-cli = pkgs.opensips-cli;
-            default = pkgs.opensips;
+            opensips = pkgs.opensips_36;
+            default = pkgs.opensips_36;
           });
       nixosModules.opensips = {
         imports = [ ./opensips/module.nix ];
