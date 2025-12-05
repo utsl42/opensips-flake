@@ -12,6 +12,9 @@ buildPythonPackage rec {
     sha256 = "sha256-vU6WCiv5PtIAvfdRFXzWdCB4itMX/cf/7higrjeO8ng=";
   };
 
+  pyproject = true;
+  build-system = [ setuptools ];
+
   propagatedBuildInputs = [ sqlalchemy sqlalchemy-utils ];
   patchPhase = ''
     # The versions of mysqlclient and sqlalchemy this thing wants
