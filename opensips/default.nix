@@ -101,19 +101,19 @@ let
 rec {
   opensips_34 = generic {
     pname = "opensips_34";
-    version = "3.4.13";
-    sha256 = "sha256-tXVp14bRGDmS4byPvNkhpuLHpgxq1NoLDAvLwAJq9EM=";
+    version = "3.4.15";
+    sha256 = "sha256-O9SAs34tTkgQt8RzeyofSvnCXfRU6+ZWG4nQ6lNtxOw=";
   };
 
   opensips_35 = generic {
     pname = "opensips_35";
-    version = "3.5.6";
-    sha256 = "sha256-sSHJG7f7hMQb+i0ZVaEquAS6vqOyWZzK2d4hJ27XtjI=";
+    version = "3.5.8";
+    sha256 = "sha256-Y0regsEJgCu9tK4tCAWhgm90xCUe+F6tAOBwyn38vHI=";
   };
 
   opensips_36 = generic {
     pname = "opensips_36";
-    version = "3.6.1";
-    sha256 = "sha256-eCaVOVscXjK+3FxpwRapEI/J/TBkd4EVQbdPTLCGHXk=";
+    version = "3.6.2";
+    sha256 = "sha256-doT1vxQIuEch5jVpVEkXYzMQTKHv8R/T0VtbQPdQVh4=";
   };
 }
