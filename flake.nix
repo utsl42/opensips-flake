@@ -24,7 +24,8 @@
           opensips_35
           opensips_36
         ;
-        opensips-cli = final.callPackage ./opensips-cli/default.nix { };
+        
+        opensips-cli = final.python3Packages.callPackage ./opensips-cli/default.nix { };
       };
       tests = forAllSystems (system: {
         unit-test = import ./opensips/configfile_test.nix { pkgs = pkgsForSystem system; };
